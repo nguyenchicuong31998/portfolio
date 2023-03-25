@@ -1,12 +1,16 @@
-FROM node:14
+FROM node:16
 
-WORKDIR ./app
+WORKDIR /src
 
-EXPOSE 8001
+COPY package*.json yarn.lock ./
+
+RUN npm install
 
 COPY . .
 
-RUN yarn install
+RUN npm build
 
-CMD ["yarn", "start"]
+EXPOSE 8001
+
+CMD ["npm", "start"]
 
